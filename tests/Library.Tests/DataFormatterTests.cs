@@ -1,4 +1,5 @@
 namespace Library.Tests;
+using TestDateFormat;
 
 public class DateFormatterTests
 {
@@ -8,12 +9,31 @@ public class DateFormatterTests
     }
 
     [Test]
+    public void TestFechaFormatoCorrecto()
+    {
+        string testDate = "12/11/1999";
+        string expectedResult =  "1999-11-12";
+        string result = DateFormatter.ChangeFormat(testDate) ;
+        
+        Assert.That(result == expectedResult,$"expected: {expectedResult} \n    result: {result}");
+    }
+    [Test]
     public void TestFechaFormatoIncorrecto()
     {
-        var testDate = "11/456/43";
-        var expectedResult =  "error data format incorrect";
-        var result = DateFormatter.ChangeFormat(testDate) == expectedResult;
+        string testDate = "12/11199";
+        string expectedResult = "Error: formato incorrecto";
+        string result = DateFormatter.ChangeFormat(testDate) ;
         
-        Assert.isFalse(result);
+        Assert.That(result == expectedResult,$"expected: {expectedResult} \n    result: {result}");
     }
+    [Test]
+    public void TestFechaEnBlanco()
+    {
+        string testDate = "";
+        string expectedResult = "Error: fecha en blanco";
+        string result = DateFormatter.ChangeFormat(testDate) ;
+        
+        Assert.That(result == expectedResult,$"expected: {expectedResult} \n    result: {result}");
+    }
+
 }
